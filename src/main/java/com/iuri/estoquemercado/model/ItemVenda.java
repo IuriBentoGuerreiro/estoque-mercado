@@ -24,13 +24,12 @@ public class ItemVenda {
     private Integer id;
     @Column(name = "quantidade")
     private Integer quantidade;
-    @ManyToOne
-    private Produto produto;
+
 
     public static ItemVenda conveterParaItemVenda(ItemVendaRequest itemVendaRequest){
         return ItemVenda.builder()
                 .quantidade(itemVendaRequest.getQuantidade())
-                .produto(itemVendaRequest.getProduto())
+
                 .build();
     }
 }

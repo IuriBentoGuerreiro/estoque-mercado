@@ -15,5 +15,5 @@ public class VendaRequest {
 
     private LocalDate data;
     private String cliente;
-    private List<ItemVenda> itensVendidos;
+    private List<ItemVendaRequest> itensVendidos;
 }

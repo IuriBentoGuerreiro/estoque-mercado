@@ -33,7 +33,6 @@ public class Venda {
         return Venda.builder()
                 .data(LocalDate.now())
                 .cliente(vendaRequest.getCliente())
-                .itensVendidos(vendaRequest.getItensVendidos())
                 .build();
     }
 }

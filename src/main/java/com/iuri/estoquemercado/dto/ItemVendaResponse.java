@@ -15,13 +15,11 @@ public class ItemVendaResponse {
 
     private Integer id;
     private Integer quantidade;
-    private Produto produto;
 
     public static ItemVendaResponse converterParaResponse(ItemVenda itemVenda){
         return ItemVendaResponse.builder()
                 .id(itemVenda.getId())
                 .quantidade(itemVenda.getQuantidade())
-                .produto(itemVenda.getProduto())
                 .build();
     }
 }
