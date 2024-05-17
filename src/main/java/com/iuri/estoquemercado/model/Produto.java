@@ -2,10 +2,7 @@ package com.iuri.estoquemercado.model;
 
 import com.iuri.estoquemercado.dto.ProdutoRequest;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -15,6 +12,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Produto {
 
     @Id
@@ -27,6 +25,10 @@ public class Produto {
     private Integer quantidadeEstoque;
     @Column(name = "preco")
     private BigDecimal preco;
+
+    public Produto(Integer id){
+        this.id = id;
+    }
 
     public static Produto converterParaProduto(ProdutoRequest produtoRequest){
         return Produto.builder()

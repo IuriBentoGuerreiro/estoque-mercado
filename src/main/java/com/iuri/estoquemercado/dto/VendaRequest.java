@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -15,5 +14,6 @@ public class VendaRequest {
 
     private LocalDate data;
     private String cliente;
-    private List<ItemVendaRequest> itensVendidos;
+    private Integer IdProduto;
+    private ItemVenda itemVenda;
 }

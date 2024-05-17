@@ -2,10 +2,7 @@ package com.iuri.estoquemercado.model;
 
 import com.iuri.estoquemercado.dto.VendaRequest;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,6 +13,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Venda {
 
     @Id
@@ -26,13 +24,24 @@ public class Venda {
     private LocalDate data;
     @Column(name = "cliente")
     private String cliente;
-    @OneToMany
-    private List<ItemVenda> itensVendidos;
+    @ManyToOne
+    @JoinColumn(name = "id_produto", referencedColumnName = "id")
+    private Produto produto;
+    @Embedded
+    private ItemVenda itemVenda;
+
+    public Venda(LocalDate data, String cliente, Produto produto, ItemVenda itemVenda) {
+        this.data = data;
+        this.cliente = cliente;
+        this.produto = produto;
+        this.itemVenda = itemVenda;
+    }
 
     public static Venda conveterParaVenda(VendaRequest vendaRequest){
         return Venda.builder()
                 .data(LocalDate.now())
                 .cliente(vendaRequest.getCliente())
+                .itemVenda(vendaRequest.getItemVenda())
                 .build();
     }
 }

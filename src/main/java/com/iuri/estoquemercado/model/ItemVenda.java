@@ -1,35 +1,23 @@
 package com.iuri.estoquemercado.model;
 
-import com.iuri.estoquemercado.dto.ItemVendaRequest;
-import com.iuri.estoquemercado.dto.ItemVendaResponse;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.math.BigDecimal;
 
-@Entity
-@Table(name = "item_venda")
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Embeddable
 public class ItemVenda {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
     @Column(name = "quantidade")
     private Integer quantidade;
-
-
-    public static ItemVenda conveterParaItemVenda(ItemVendaRequest itemVendaRequest){
-        return ItemVenda.builder()
-                .quantidade(itemVendaRequest.getQuantidade())
-
-                .build();
-    }
+    @Column(name = "preco_total")
+    private BigDecimal precoTotal;
 }

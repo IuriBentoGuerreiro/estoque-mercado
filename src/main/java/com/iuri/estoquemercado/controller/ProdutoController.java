@@ -36,8 +36,7 @@ public class ProdutoController {
     @Operation(summary = "Listar")
     @GetMapping
     public List<ProdutoResponse> listar(){
-        return produtoService.listar().stream()
-                .map(produto -> ProdutoResponse.converterParaResponse(produto)).toList();
+        return produtoService.listar();
     }
 
     @Operation(summary = "Atualizar")
@@ -46,7 +45,7 @@ public class ProdutoController {
         return ProdutoResponse.converterParaResponse(produtoService.atualizar(id, produtoRequest));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @Operation(summary = "Deletar")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar(@PathVariable Integer id){

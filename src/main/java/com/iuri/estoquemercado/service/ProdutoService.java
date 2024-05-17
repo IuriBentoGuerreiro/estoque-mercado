@@ -1,6 +1,7 @@
 package com.iuri.estoquemercado.service;
 
 import com.iuri.estoquemercado.dto.ProdutoRequest;
+import com.iuri.estoquemercado.dto.ProdutoResponse;
 import com.iuri.estoquemercado.model.Produto;
 import com.iuri.estoquemercado.repository.ProdutoRepository;
 import org.springframework.beans.BeanUtils;
@@ -26,8 +27,9 @@ public class ProdutoService {
         );
     }
 
-    public List<Produto> listar(){
-        return produtoRepository.findAll();
+    public List<ProdutoResponse> listar(){
+        return produtoRepository.findAll().stream().map(
+                ProdutoResponse::converterParaResponse).toList();
     }
 
     public Produto atualizar(Integer id, ProdutoRequest produtoRequest){
