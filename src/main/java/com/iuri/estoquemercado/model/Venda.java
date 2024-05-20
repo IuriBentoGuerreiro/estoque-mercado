@@ -30,18 +30,12 @@ public class Venda {
     @Embedded
     private ItemVenda itemVenda;
 
-    public Venda(LocalDate data, String cliente, Produto produto, ItemVenda itemVenda) {
-        this.data = data;
-        this.cliente = cliente;
-        this.produto = produto;
-        this.itemVenda = itemVenda;
-    }
-
     public static Venda conveterParaVenda(VendaRequest vendaRequest){
         return Venda.builder()
                 .data(LocalDate.now())
                 .cliente(vendaRequest.getCliente())
                 .itemVenda(vendaRequest.getItemVenda())
+                .produto(new Produto(vendaRequest.getIdProduto()))
                 .build();
     }
 }

@@ -19,7 +19,6 @@ public class ProdutoResponse {
     private String nome;
     private Integer quantidadeEstoque;
     private BigDecimal preco;
-    private Venda venda;
 
     public static ProdutoResponse converterParaResponse(Produto produto){
         return ProdutoResponse.builder()

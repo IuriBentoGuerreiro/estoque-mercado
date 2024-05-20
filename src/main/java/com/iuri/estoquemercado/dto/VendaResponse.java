@@ -1,6 +1,7 @@
 package com.iuri.estoquemercado.dto;
 
 import com.iuri.estoquemercado.model.ItemVenda;
+import com.iuri.estoquemercado.model.Produto;
 import com.iuri.estoquemercado.model.Venda;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,8 +18,8 @@ public class VendaResponse {
 
     private Integer id;
     private LocalDate data;
+    private Produto IdProduto;
     private String cliente;
-    private Integer IdProduto;
     private ItemVenda itemVenda;
 
     public static VendaResponse converterParaResponse(Venda venda){
@@ -27,6 +28,7 @@ public class VendaResponse {
                 .data(LocalDate.now())
                 .cliente(venda.getCliente())
                 .itemVenda(venda.getItemVenda())
+                .IdProduto(venda.getProduto())
                 .build();
     }
 }

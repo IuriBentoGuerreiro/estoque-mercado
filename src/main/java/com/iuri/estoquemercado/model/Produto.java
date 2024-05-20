@@ -26,8 +26,8 @@ public class Produto {
     @Column(name = "preco")
     private BigDecimal preco;
 
-    public Produto(Integer id){
-        this.id = id;
+    public Produto(Integer idProduto){
+        this.id = idProduto;
     }
 
     public static Produto converterParaProduto(ProdutoRequest produtoRequest){
