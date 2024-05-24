@@ -50,8 +50,8 @@ public class ProdutoController {
                 .body(ProdutoResponse.converterParaResponse(produtoSalvo));
     }
 
-    @DeleteMapping("/{id}")
     @Operation(summary = "Deletar")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar(@PathVariable Integer id){
         produtoService.deletar(id);
