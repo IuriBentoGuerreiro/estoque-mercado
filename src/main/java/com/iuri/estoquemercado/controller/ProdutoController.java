@@ -5,9 +5,9 @@ import com.iuri.estoquemercado.dto.ProdutoResponse;
 import com.iuri.estoquemercado.service.ProdutoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +22,10 @@ public class ProdutoController {
 
     @PostMapping
     @Operation(summary = "Salvar")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ProdutoResponse salvar(@RequestBody ProdutoRequest produtoRequest){
-        return ProdutoResponse.converterParaResponse(produtoService.salvar(produtoRequest));
+    public ResponseEntity<ProdutoResponse> salvar(@RequestBody ProdutoRequest produtoRequest){
+        var produto = produtoService.salvar(produtoRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body
+                (ProdutoResponse.converterParaResponse(produto));
     }
 
     @Operation(summary = "Pegar por id")
@@ -35,14 +36,18 @@ public class ProdutoController {
 
     @Operation(summary = "Listar")
     @GetMapping
-    public List<ProdutoResponse> listar(){
-        return produtoService.listar();
+    public ResponseEntity<List<ProdutoResponse>> listar(){
+        var listaProduto = produtoService.listar();
+        return ResponseEntity.ok().body(listaProduto);
     }
 
     @Operation(summary = "Atualizar")
     @PutMapping("/{id}")
-    public ProdutoResponse atualizar(@PathVariable Integer id, @RequestBody ProdutoRequest produtoRequest){
-        return ProdutoResponse.converterParaResponse(produtoService.atualizar(id, produtoRequest));
+    public ResponseEntity<ProdutoResponse> atualizar
+            (@PathVariable Integer id, @RequestBody ProdutoRequest produtoRequest){
+        var produtoSalvo = produtoService.atualizar(id, produtoRequest);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ProdutoResponse.converterParaResponse(produtoSalvo));
     }
 
     @DeleteMapping("/{id}")
