@@ -14,5 +14,5 @@ public class VendaRequest {
     private LocalDate data;
     private String cliente;
     private Integer IdProduto;
-    private ItemVendaRequest itemVenda;
+    private PedidoRequest pedido;
 }

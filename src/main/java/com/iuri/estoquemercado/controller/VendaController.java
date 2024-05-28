@@ -22,9 +22,9 @@ public class VendaController {
 
     @Operation(summary = "Salvar")
     @PostMapping
-    public ResponseEntity<String> salvarVenda(@RequestBody VendaRequest vendaRequest){
+    public ResponseEntity<VendaResponse> salvarVenda(@RequestBody VendaRequest vendaRequest){
         var vendaResponse = vendaService.salvarVenda(vendaRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Venda Realizada");
+        return ResponseEntity.status(HttpStatus.CREATED).body(vendaResponse);
     }
 
     @Operation(summary = "Listar")

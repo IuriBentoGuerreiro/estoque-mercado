@@ -1,13 +1,11 @@
 package com.iuri.estoquemercado.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.iuri.estoquemercado.dto.ItemVendaRequest;
 import com.iuri.estoquemercado.dto.VendaRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "venda")
@@ -32,14 +30,14 @@ public class Venda {
     @JsonBackReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_item_venda", referencedColumnName = "id")
-    private ItemVenda itemVenda;
+    private Pedido pedidos;
 
     public static Venda conveterParaVenda(VendaRequest vendaRequest){
         return Venda.builder()
                 .data(LocalDate.now())
                 .cliente(vendaRequest.getCliente())
                 .produto(new Produto(vendaRequest.getIdProduto()))
-                .itemVenda(ItemVenda.converterParaItemVenda(vendaRequest.getItemVenda()))
+                .pedidos(Pedido.converterParaItemVenda(vendaRequest.getPedido()))
                 .build();
     }
 }

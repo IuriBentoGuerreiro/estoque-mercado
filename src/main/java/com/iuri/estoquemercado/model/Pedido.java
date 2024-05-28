@@ -1,6 +1,6 @@
 package com.iuri.estoquemercado.model;
 
-import com.iuri.estoquemercado.dto.ItemVendaRequest;
+import com.iuri.estoquemercado.dto.PedidoRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemVenda {
+public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +25,10 @@ public class ItemVenda {
     @Column(name = "preco_total")
     private BigDecimal precoTotal;
 
-    public static ItemVenda converterParaItemVenda(ItemVendaRequest itemVendaRequest){
-        return ItemVenda.builder()
-                .quantidade(itemVendaRequest.getQuantidade())
-                .precoTotal(itemVendaRequest.getPrecoTotal())
+    public static Pedido converterParaItemVenda(PedidoRequest pedidoRequest){
+        return Pedido.builder()
+                .quantidade(pedidoRequest.getQuantidade())
+                .precoTotal(pedidoRequest.getPrecoTotal())
                 .build();
     }
 }
