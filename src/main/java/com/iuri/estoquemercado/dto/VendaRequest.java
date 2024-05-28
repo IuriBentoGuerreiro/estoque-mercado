@@ -1,6 +1,5 @@
 package com.iuri.estoquemercado.dto;
 
-import com.iuri.estoquemercado.model.ItemVenda;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +14,5 @@ public class VendaRequest {
     private LocalDate data;
     private String cliente;
     private Integer IdProduto;
-    private ItemVenda itemVenda;
+    private ItemVendaRequest itemVenda;
 }

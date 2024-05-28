@@ -26,9 +26,9 @@ public class VendaResponse {
         return VendaResponse.builder()
                 .id(venda.getId())
                 .data(LocalDate.now())
+                .IdProduto(venda.getProduto())
                 .cliente(venda.getCliente())
                 .itemVenda(venda.getItemVenda())
-                .IdProduto(venda.getProduto())
                 .build();
     }
 }
