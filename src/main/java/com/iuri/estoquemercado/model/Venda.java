@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "venda")
@@ -20,24 +21,20 @@ public class Venda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "data")
-    private LocalDate data;
-    @Column(name = "cliente")
-    private String cliente;
     @ManyToOne
     @JoinColumn(name = "id_produto", referencedColumnName = "id")
     private Produto produto;
+    @Column(name = "data")
+    private LocalDate data;
     @JsonBackReference
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_item_venda", referencedColumnName = "id")
-    private Pedido pedidos;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Pedido> pedido;
 
     public static Venda conveterParaVenda(VendaRequest vendaRequest){
         return Venda.builder()
+                .produto(new Produto(vendaRequest.idProduto))
                 .data(LocalDate.now())
-                .cliente(vendaRequest.getCliente())
-                .produto(new Produto(vendaRequest.getIdProduto()))
-                .pedidos(Pedido.converterParaItemVenda(vendaRequest.getPedido()))
+                .pedido(vendaRequest.getPedidos())
                 .build();
     }
 }

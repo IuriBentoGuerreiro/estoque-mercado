@@ -2,9 +2,9 @@ package com.iuri.estoquemercado.service;
 
 import com.iuri.estoquemercado.dto.VendaRequest;
 import com.iuri.estoquemercado.dto.VendaResponse;
-import com.iuri.estoquemercado.model.Produto;
 import com.iuri.estoquemercado.model.Venda;
 import com.iuri.estoquemercado.repository.VendaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,7 @@ public class VendaService {
     private VendaRepository vendaRepository;
 
     public VendaResponse salvarVenda(VendaRequest vendaRequest){
-        return VendaResponse.converterParaResponse(vendaRepository
-                .save(Venda.conveterParaVenda(vendaRequest)));
+        return VendaResponse.converterParaResponse(Venda.conveterParaVenda(vendaRequest));
     }
 
     public List<VendaResponse> listar(){

@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Builder
@@ -17,18 +18,16 @@ import java.time.LocalDate;
 public class VendaResponse {
 
     private Integer id;
+    private Produto produto;
     private LocalDate data;
-    private Produto IdProduto;
-    private String cliente;
-    private Pedido pedido;
+    private List<Pedido> pedidos;
 
     public static VendaResponse converterParaResponse(Venda venda){
         return VendaResponse.builder()
                 .id(venda.getId())
+                .produto(venda.getProduto())
                 .data(LocalDate.now())
-                .IdProduto(venda.getProduto())
-                .cliente(venda.getCliente())
-                .pedido(venda.getPedidos())
+                .pedidos(venda.getPedido())
                 .build();
     }
 }
