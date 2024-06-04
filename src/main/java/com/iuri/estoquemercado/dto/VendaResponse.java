@@ -18,14 +18,12 @@ import java.util.List;
 public class VendaResponse {
 
     private Integer id;
-    private Produto produto;
     private LocalDate data;
     private List<Pedido> pedidos;
 
     public static VendaResponse converter(Venda venda){
         return VendaResponse.builder()
                 .id(venda.getId())
-                .produto(venda.getProduto())
                 .data(LocalDate.now())
                 .pedidos(venda.getPedido())
                 .build();

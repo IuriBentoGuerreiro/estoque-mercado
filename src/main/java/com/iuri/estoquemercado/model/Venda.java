@@ -21,9 +21,6 @@ public class Venda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @ManyToOne
-    @JoinColumn(name = "id_produto", referencedColumnName = "id")
-    private Produto produto;
     @Column(name = "data")
     private LocalDate data;
     @JsonBackReference
@@ -32,7 +29,6 @@ public class Venda {
 
     public static Venda converter(VendaRequest vendaRequest){
         return Venda.builder()
-                .produto(new Produto(vendaRequest.idProduto))
                 .data(LocalDate.now())
                 .pedido(vendaRequest.getPedidos())
                 .build();

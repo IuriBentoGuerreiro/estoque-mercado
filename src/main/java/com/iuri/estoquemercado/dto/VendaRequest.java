@@ -14,6 +14,5 @@ import java.util.List;
 public class VendaRequest {
 
     private LocalDate data;
-    public Integer idProduto;
     private List<Pedido> pedidos;
 }

@@ -28,7 +28,6 @@ public class VendaService {
     public VendaResponse salvarVenda(VendaRequest vendaRequest){
         var venda = vendaRepository.save(Venda.builder()
                         .data(LocalDate.now())
-                        .produto(new Produto(vendaRequest.idProduto))
                         .pedido(vendaRequest.getPedidos())
                 .build());
 

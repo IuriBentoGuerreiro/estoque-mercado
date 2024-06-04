@@ -1,6 +1,7 @@
 package com.iuri.estoquemercado.model;
 
 import com.iuri.estoquemercado.dto.PedidoRequest;
+import com.iuri.estoquemercado.dto.ProdutoRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,9 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "id_produto", referencedColumnName = "id")
+    private Produto produto;
     @Column(name = "cliente")
     private String cliente;
     @Column(name = "quantidade")
@@ -29,6 +33,7 @@ public class Pedido {
 
     public static Pedido converter(PedidoRequest pedidoRequest){
         return Pedido.builder()
+                .produto(new Produto(pedidoRequest.idProduto))
                 .quantidade(pedidoRequest.getQuantidade())
                 .cliente(pedidoRequest.getCliente())
                 .precoTotal(pedidoRequest.getPrecoTotal())
