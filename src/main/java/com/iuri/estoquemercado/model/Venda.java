@@ -27,10 +27,10 @@ public class Venda {
     @Column(name = "data")
     private LocalDate data;
     @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Pedido> pedido;
 
-    public static Venda conveterParaVenda(VendaRequest vendaRequest){
+    public static Venda converter(VendaRequest vendaRequest){
         return Venda.builder()
                 .produto(new Produto(vendaRequest.idProduto))
                 .data(LocalDate.now())

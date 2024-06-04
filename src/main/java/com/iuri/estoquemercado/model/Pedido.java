@@ -1,6 +1,5 @@
 package com.iuri.estoquemercado.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.iuri.estoquemercado.dto.PedidoRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Table(name = "item_venda")
@@ -29,7 +27,7 @@ public class Pedido {
     @Column(name = "preco_total")
     private BigDecimal precoTotal;
 
-    public static Pedido converterParaPedido(PedidoRequest pedidoRequest){
+    public static Pedido converter(PedidoRequest pedidoRequest){
         return Pedido.builder()
                 .quantidade(pedidoRequest.getQuantidade())
                 .cliente(pedidoRequest.getCliente())

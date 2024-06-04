@@ -2,6 +2,7 @@ package com.iuri.estoquemercado.controller;
 
 import com.iuri.estoquemercado.dto.VendaRequest;
 import com.iuri.estoquemercado.dto.VendaResponse;
+import com.iuri.estoquemercado.model.Venda;
 import com.iuri.estoquemercado.service.VendaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,14 +24,14 @@ public class VendaController {
     @Operation(summary = "Salvar")
     @PostMapping
     public ResponseEntity<VendaResponse> salvarVenda(@RequestBody VendaRequest vendaRequest){
-        var vendaResponse = vendaService.salvarVenda(vendaRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(vendaResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body
+                (VendaResponse.converter(Venda.converter(vendaRequest)));
     }
 
     @Operation(summary = "Listar")
     @GetMapping
     public ResponseEntity<List<VendaResponse>> listar(){
-        var  listaVendas = vendaService.listar();
+        var listaVendas = vendaService.listar();
         return ResponseEntity.ok().body(listaVendas);
     }
 
@@ -38,7 +39,7 @@ public class VendaController {
     @GetMapping("/{id}")
     public ResponseEntity<VendaResponse> pegarPorId(@PathVariable Integer id){
         var venda = vendaService.pegarPorId(id);
-        return ResponseEntity.ok().body(VendaResponse.converterParaResponse(venda));
+        return ResponseEntity.ok().body(VendaResponse.converter(venda));
     }
 
     @Operation(summary = "Atualizar")
@@ -47,7 +48,7 @@ public class VendaController {
             (@PathVariable Integer id, @RequestBody VendaRequest vendaRequest){
         var vendaSalva = vendaService.atualizar(id, vendaRequest);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(VendaResponse.converterParaResponse(vendaSalva));
+                .body(VendaResponse.converter(vendaSalva));
     }
 
     @Operation(summary = "Deletar")

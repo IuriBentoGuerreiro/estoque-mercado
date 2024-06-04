@@ -22,7 +22,7 @@ public class VendaResponse {
     private LocalDate data;
     private List<Pedido> pedidos;
 
-    public static VendaResponse converterParaResponse(Venda venda){
+    public static VendaResponse converter(Venda venda){
         return VendaResponse.builder()
                 .id(venda.getId())
                 .produto(venda.getProduto())

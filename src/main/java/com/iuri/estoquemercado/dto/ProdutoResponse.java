@@ -1,7 +1,6 @@
 package com.iuri.estoquemercado.dto;
 
 import com.iuri.estoquemercado.model.Produto;
-import com.iuri.estoquemercado.model.Venda;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +19,7 @@ public class ProdutoResponse {
     private Integer quantidadeEstoque;
     private BigDecimal preco;
 
-    public static ProdutoResponse converterParaResponse(Produto produto){
+    public static ProdutoResponse converter(Produto produto){
         return ProdutoResponse.builder()
                 .id(produto.getId())
                 .nome(produto.getNome())

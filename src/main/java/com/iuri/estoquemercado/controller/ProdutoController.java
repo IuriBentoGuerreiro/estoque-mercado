@@ -25,13 +25,13 @@ public class ProdutoController {
     public ResponseEntity<ProdutoResponse> salvar(@RequestBody ProdutoRequest produtoRequest){
         var produto = produtoService.salvar(produtoRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body
-                (ProdutoResponse.converterParaResponse(produto));
+                (ProdutoResponse.converter(produto));
     }
 
     @Operation(summary = "Pegar por id")
     @GetMapping("/{id}")
     public ProdutoResponse pegarPorId(@PathVariable Integer id){
-        return ProdutoResponse.converterParaResponse(produtoService.pegarPorId(id));
+        return ProdutoResponse.converter(produtoService.pegarPorId(id));
     }
 
     @Operation(summary = "Listar")
@@ -47,7 +47,7 @@ public class ProdutoController {
             (@PathVariable Integer id, @RequestBody ProdutoRequest produtoRequest){
         var produtoSalvo = produtoService.atualizar(id, produtoRequest);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ProdutoResponse.converterParaResponse(produtoSalvo));
+                .body(ProdutoResponse.converter(produtoSalvo));
     }
 
     @Operation(summary = "Deletar")

@@ -19,7 +19,7 @@ public class PedidoResponse {
     private Integer quantidade;
     private BigDecimal precoTotal;
 
-    public PedidoResponse converterParaResponse(Pedido pedido){
+    public PedidoResponse converter(Pedido pedido){
         return PedidoResponse.builder()
                 .id(pedido.getId())
                 .cliente(pedido.getCliente())

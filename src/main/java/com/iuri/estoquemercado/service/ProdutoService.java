@@ -18,7 +18,7 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     public Produto salvar(ProdutoRequest produtoRequest){
-        return produtoRepository.save(Produto.converterParaProduto(produtoRequest));
+        return produtoRepository.save(Produto.converter(produtoRequest));
     }
 
     public Produto pegarPorId(Integer id){
@@ -29,7 +29,7 @@ public class ProdutoService {
 
     public List<ProdutoResponse> listar(){
         return produtoRepository.findAll().stream().map(
-                ProdutoResponse::converterParaResponse).toList();
+                ProdutoResponse::converter).toList();
     }
 
     public Produto atualizar(Integer id, ProdutoRequest produtoRequest){

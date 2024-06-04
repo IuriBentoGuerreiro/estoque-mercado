@@ -30,7 +30,7 @@ public class Produto {
         this.id = idProduto;
     }
 
-    public static Produto converterParaProduto(ProdutoRequest produtoRequest){
+    public static Produto converter(ProdutoRequest produtoRequest){
         return Produto.builder()
                 .nome(produtoRequest.getNome())
                 .quantidadeEstoque(produtoRequest.getQuantidadeEstoque())
