@@ -37,8 +37,7 @@ public class ProdutoController {
     @Operation(summary = "Listar")
     @GetMapping
     public ResponseEntity<List<ProdutoResponse>> listar(){
-        var listaProduto = produtoService.listar();
-        return ResponseEntity.ok().body(listaProduto);
+        return ResponseEntity.ok().body(produtoService.listar());
     }
 
     @Operation(summary = "Atualizar")

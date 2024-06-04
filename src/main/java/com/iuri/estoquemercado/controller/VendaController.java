@@ -31,8 +31,7 @@ public class VendaController {
     @Operation(summary = "Listar")
     @GetMapping
     public ResponseEntity<List<VendaResponse>> listar(){
-        var listaVendas = vendaService.listar();
-        return ResponseEntity.ok().body(listaVendas);
+        return ResponseEntity.ok().body(vendaService.listar());
     }
 
     @Operation(summary = "Pegar por id")

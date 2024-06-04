@@ -1,7 +1,6 @@
 package com.iuri.estoquemercado.model;
 
 import com.iuri.estoquemercado.dto.PedidoRequest;
-import com.iuri.estoquemercado.dto.ProdutoRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,7 +32,7 @@ public class Pedido {
 
     public static Pedido converter(PedidoRequest pedidoRequest){
         return Pedido.builder()
-                .produto(new Produto(pedidoRequest.idProduto))
+                .produto(new Produto(pedidoRequest.getIdProduto()))
                 .quantidade(pedidoRequest.getQuantidade())
                 .cliente(pedidoRequest.getCliente())
                 .precoTotal(pedidoRequest.getPrecoTotal())
