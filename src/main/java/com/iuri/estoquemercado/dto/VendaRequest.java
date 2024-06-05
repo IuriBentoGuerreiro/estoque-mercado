@@ -14,5 +14,5 @@ import java.util.List;
 public class VendaRequest {
 
     private LocalDate data;
-    private List<Pedido> pedidos;
+    private List<PedidoRequest> pedidos;
 }

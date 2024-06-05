@@ -3,6 +3,7 @@ package com.iuri.estoquemercado.service;
 import com.iuri.estoquemercado.dto.PedidoRequest;
 import com.iuri.estoquemercado.dto.PedidoResponse;
 import com.iuri.estoquemercado.model.Pedido;
+import com.iuri.estoquemercado.model.Produto;
 import com.iuri.estoquemercado.repository.PedidoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
@@ -19,17 +20,23 @@ public class PedidoService {
     private PedidoRepository pedidoRepository;
 
     @Autowired
-    private ProdutoService serviceRepository;
+    private ProdutoService produtoService;
 
     @Transactional
     public PedidoResponse salvar(PedidoRequest pedidoRequest){
         var pedido = pedidoRepository.save(Pedido.builder()
-                        .produto(serviceRepository.pegarPorId(pedidoRequest.getIdProduto()))
+                        .produto(produtoService.pegarPorId(pedidoRequest.getIdProduto()))
                         .quantidade(pedidoRequest.getQuantidade())
                         .precoTotal(pedidoRequest.getPrecoTotal())
                         .cliente(pedidoRequest.getCliente())
                 .build());
+        estoque(pedidoRequest.getIdProduto(), pedidoRequest.getQuantidade());
         return PedidoResponse.converter(pedido);
+    }
+
+    private void estoque(Integer idProduto, int qtd){
+        var produto = produtoService.pegarPorId(idProduto);
+        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - qtd);
     }
 
     public List<PedidoResponse> listar(){

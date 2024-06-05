@@ -1,6 +1,7 @@
 package com.iuri.estoquemercado.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.iuri.estoquemercado.dto.PedidoRequest;
 import com.iuri.estoquemercado.dto.VendaRequest;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,7 +31,7 @@ public class Venda {
     public static Venda converter(VendaRequest vendaRequest){
         return Venda.builder()
                 .data(LocalDate.now())
-                .pedido(vendaRequest.getPedidos())
+                .pedido(vendaRequest.getPedidos().stream().map(Pedido::converter).toList())
                 .build();
     }
 }
