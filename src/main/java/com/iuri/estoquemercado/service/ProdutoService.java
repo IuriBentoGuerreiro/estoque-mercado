@@ -44,12 +44,10 @@ public class ProdutoService {
     }
 
     public ProdutoResponse atualizarEstoque(Integer id, ProdutoEstoqueFilter filter){
-        var produto = pegarPorId(id);
-        var produtoSalvo = produtoRepository.save(Produto.builder()
-                .nome(produto.getNome())
-                .quantidadeEstoque(filter.getQuantidadeEstoque())
-                .preco(produto.getPreco())
-                .build());
-        return ProdutoResponse.converter(produtoSalvo);
+       var produto = pegarPorId(id);
+       produto.setQuantidadeEstoque(filter.getQuantidadeEstoque());
+       BeanUtils.copyProperties(produto, filter, "id", "nome", "preco");
+       produtoRepository.save(produto);
+       return ProdutoResponse.converter(produto);
     }
 }
