@@ -13,6 +13,5 @@ public class PedidoRequest {
 
     private Integer idProduto;
     private Integer quantidade;
-    private BigDecimal precoTotal;
     private String cliente;
 }

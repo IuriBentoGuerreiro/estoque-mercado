@@ -35,7 +35,6 @@ public class Pedido {
                 .produto(new Produto(pedidoRequest.getIdProduto()))
                 .quantidade(pedidoRequest.getQuantidade())
                 .cliente(pedidoRequest.getCliente())
-                .precoTotal(pedidoRequest.getPrecoTotal())
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package com.iuri.estoquemercado.service;
 
+import com.iuri.estoquemercado.dto.ProdutoEstoqueFilter;
 import com.iuri.estoquemercado.dto.ProdutoRequest;
 import com.iuri.estoquemercado.dto.ProdutoResponse;
 import com.iuri.estoquemercado.model.Produto;
@@ -40,5 +41,15 @@ public class ProdutoService {
 
     public void deletar(Integer id){
         produtoRepository.deleteById(id);
+    }
+
+    public ProdutoResponse atualizarEstoque(Integer id, ProdutoEstoqueFilter filter){
+        var produto = pegarPorId(id);
+        var produtoSalvo = produtoRepository.save(Produto.builder()
+                .nome(produto.getNome())
+                .quantidadeEstoque(filter.getQuantidadeEstoque())
+                .preco(produto.getPreco())
+                .build());
+        return ProdutoResponse.converter(produtoSalvo);
     }
 }

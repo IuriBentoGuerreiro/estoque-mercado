@@ -1,5 +1,6 @@
 package com.iuri.estoquemercado.controller;
 
+import com.iuri.estoquemercado.dto.ProdutoEstoqueFilter;
 import com.iuri.estoquemercado.dto.ProdutoRequest;
 import com.iuri.estoquemercado.dto.ProdutoResponse;
 import com.iuri.estoquemercado.service.ProdutoService;
@@ -23,9 +24,8 @@ public class ProdutoController {
     @PostMapping
     @Operation(summary = "Salvar")
     public ResponseEntity<ProdutoResponse> salvar(@RequestBody ProdutoRequest produtoRequest){
-        var produto = produtoService.salvar(produtoRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body
-                (ProdutoResponse.converter(produto));
+                (ProdutoResponse.converter(produtoService.salvar(produtoRequest)));
     }
 
     @Operation(summary = "Pegar por id")
@@ -54,5 +54,12 @@ public class ProdutoController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar(@PathVariable Integer id){
         produtoService.deletar(id);
+    }
+
+    @Operation(summary = "Atualiza estoque de produto")
+    @PutMapping("/{id}/produto")
+    public ResponseEntity<ProdutoResponse> atualizarEstoque(Integer id, ProdutoEstoqueFilter filter){
+        var produto = produtoService.atualizarEstoque(id, filter);
+        return ResponseEntity.status(HttpStatus.CREATED).body(produto);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -26,16 +27,31 @@ public class PedidoService {
         var pedido = pedidoRepository.save(Pedido.builder()
                         .produto(produtoService.pegarPorId(pedidoRequest.getIdProduto()))
                         .quantidade(pedidoRequest.getQuantidade())
-                        .precoTotal(pedidoRequest.getPrecoTotal())
+                        .precoTotal(preco(Pedido.converter(pedidoRequest), pedidoRequest.getIdProduto()))
                         .cliente(pedidoRequest.getCliente())
                 .build());
         diminuirEstoque(pedidoRequest.getIdProduto(), pedidoRequest.getQuantidade());
         return PedidoResponse.converter(pedido);
     }
 
+    //TODO revisar: esta aumentando os preços dos produtos
+    private BigDecimal preco(Pedido pedido, Integer idProduto){
+        var produto = produtoService.pegarPorId(idProduto);
+        BigDecimal quantidade = BigDecimal.valueOf(pedido.getQuantidade());
+        pedido.setPrecoTotal(quantidade.multiply(produto.getPreco()));
+        return pedido.getPrecoTotal();
+    }
+
     private void diminuirEstoque(Integer idProduto, int qtd){
         var produto = produtoService.pegarPorId(idProduto);
         produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - qtd);
+    }
+
+    //TODO naõ esta funcionando
+    private void devolverEstoque(Integer id){
+        var pedido = pegarPorId(id);
+        var produto = produtoService.pegarPorId(id);
+        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + pedido.getQuantidade());
     }
 
     public List<PedidoResponse> listar(){
@@ -56,7 +72,9 @@ public class PedidoService {
         return pedidoRepository.save(pedidoSalvo);
     }
 
+    @Transactional
     public void deletar(Integer id){
-        pedidoRepository.deleteById(id);
+            devolverEstoque(id);
+            pedidoRepository.deleteById(id);
     }
 }

@@ -27,7 +27,7 @@ public class PedidoResponse {
                 .produto(pedido.getProduto())
                 .cliente(pedido.getCliente())
                 .quantidade(pedido.getQuantidade())
-                .precoTotal(pedido.getPrecoTotal())
+                .precoTotal(pedido.getProduto().getPreco())
                 .build();
     }
 }
