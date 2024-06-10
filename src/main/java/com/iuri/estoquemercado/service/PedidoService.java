@@ -34,25 +34,6 @@ public class PedidoService {
         return PedidoResponse.converter(pedido);
     }
 
-    private BigDecimal precoTotal(Pedido pedido, Integer idProduto){
-        var produto = produtoService.pegarPorId(idProduto);
-        var quantidade = BigDecimal.valueOf(pedido.getQuantidade());
-        var precoTotal = quantidade.multiply(produto.getPreco());
-        pedido.setPrecoTotal(precoTotal);
-        return  precoTotal;
-    }
-
-    private void diminuirEstoque(Integer idProduto, int qtd){
-        var produto = produtoService.pegarPorId(idProduto);
-        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - qtd);
-    }
-
-    private void devolverEstoque(Integer id){
-        var pedido = pegarPorId(id);
-        var produto = pedido.getProduto();
-        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + pedido.getQuantidade());
-    }
-
     public List<PedidoResponse> listar(){
         return pedidoRepository.findAll().stream().map(
                 PedidoResponse::converter).toList();
@@ -75,5 +56,24 @@ public class PedidoService {
     public void deletar(Integer id){
         devolverEstoque(id);
         pedidoRepository.deleteById(id);
+    }
+
+    private BigDecimal precoTotal(Pedido pedido, Integer idProduto){
+        var produto = produtoService.pegarPorId(idProduto);
+        var quantidade = BigDecimal.valueOf(pedido.getQuantidade());
+        var precoTotal = quantidade.multiply(produto.getPreco());
+        pedido.setPrecoTotal(precoTotal);
+        return  precoTotal;
+    }
+
+    private void diminuirEstoque(Integer idProduto, int qtd){
+        var produto = produtoService.pegarPorId(idProduto);
+        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - qtd);
+    }
+
+    private void devolverEstoque(Integer id){
+        var pedido = pegarPorId(id);
+        var produto = pedido.getProduto();
+        produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + pedido.getQuantidade());
     }
 }
