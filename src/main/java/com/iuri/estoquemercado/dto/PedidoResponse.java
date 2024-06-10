@@ -16,18 +16,18 @@ import java.math.BigDecimal;
 public class PedidoResponse {
 
     private Integer id;
-    private Produto produto;
     private String cliente;
     private Integer quantidade;
     private BigDecimal precoTotal;
+    private Produto produto;
 
     public static PedidoResponse converter(Pedido pedido){
         return PedidoResponse.builder()
                 .id(pedido.getId())
-                .produto(pedido.getProduto())
                 .cliente(pedido.getCliente())
                 .quantidade(pedido.getQuantidade())
-                .precoTotal(pedido.getProduto().getPreco())
+                .precoTotal(pedido.getPrecoTotal())
+                .produto(pedido.getProduto())
                 .build();
     }
 }

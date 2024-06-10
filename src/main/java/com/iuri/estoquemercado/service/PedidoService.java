@@ -27,19 +27,19 @@ public class PedidoService {
         var pedido = pedidoRepository.save(Pedido.builder()
                         .produto(produtoService.pegarPorId(pedidoRequest.getIdProduto()))
                         .quantidade(pedidoRequest.getQuantidade())
-                        .precoTotal(preco(Pedido.converter(pedidoRequest), pedidoRequest.getIdProduto()))
+                        .precoTotal(precoTotal(Pedido.converter(pedidoRequest), pedidoRequest.getIdProduto()))
                         .cliente(pedidoRequest.getCliente())
                 .build());
         diminuirEstoque(pedidoRequest.getIdProduto(), pedidoRequest.getQuantidade());
         return PedidoResponse.converter(pedido);
     }
 
-    //TODO revisar: esta aumentando os preços dos produtos
-    private BigDecimal preco(Pedido pedido, Integer idProduto){
+    private BigDecimal precoTotal(Pedido pedido, Integer idProduto){
         var produto = produtoService.pegarPorId(idProduto);
-        BigDecimal quantidade = BigDecimal.valueOf(pedido.getQuantidade());
-        pedido.setPrecoTotal(quantidade.multiply(produto.getPreco()));
-        return pedido.getPrecoTotal();
+        var quantidade = BigDecimal.valueOf(pedido.getQuantidade());
+        var precoTotal = quantidade.multiply(produto.getPreco());
+        pedido.setPrecoTotal(precoTotal);
+        return  precoTotal;
     }
 
     private void diminuirEstoque(Integer idProduto, int qtd){
@@ -74,7 +74,6 @@ public class PedidoService {
 
     @Transactional
     public void deletar(Integer id){
-            devolverEstoque(id);
             pedidoRepository.deleteById(id);
     }
 }
