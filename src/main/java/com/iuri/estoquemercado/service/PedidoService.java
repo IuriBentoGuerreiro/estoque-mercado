@@ -47,10 +47,9 @@ public class PedidoService {
         produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - qtd);
     }
 
-    //TODO naõ esta funcionando
     private void devolverEstoque(Integer id){
         var pedido = pegarPorId(id);
-        var produto = produtoService.pegarPorId(id);
+        var produto = pedido.getProduto();
         produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + pedido.getQuantidade());
     }
 
@@ -74,6 +73,7 @@ public class PedidoService {
 
     @Transactional
     public void deletar(Integer id){
-            pedidoRepository.deleteById(id);
+        devolverEstoque(id);
+        pedidoRepository.deleteById(id);
     }
 }
