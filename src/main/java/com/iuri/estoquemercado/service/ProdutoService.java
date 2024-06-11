@@ -3,6 +3,7 @@ package com.iuri.estoquemercado.service;
 import com.iuri.estoquemercado.dto.ProdutoEstoqueFilter;
 import com.iuri.estoquemercado.dto.ProdutoRequest;
 import com.iuri.estoquemercado.dto.ProdutoResponse;
+import com.iuri.estoquemercado.exception.BadRequestException;
 import com.iuri.estoquemercado.model.Produto;
 import com.iuri.estoquemercado.repository.ProdutoRepository;
 import org.springframework.beans.BeanUtils;
