@@ -6,6 +6,7 @@ import com.iuri.estoquemercado.dto.ProdutoResponse;
 import com.iuri.estoquemercado.service.ProdutoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class ProdutoController {
 
     @PostMapping
     @Operation(summary = "Salvar")
-    public ResponseEntity<ProdutoResponse> salvar(@RequestBody ProdutoRequest produtoRequest){
+    public ResponseEntity<ProdutoResponse> salvar(@Valid @RequestBody ProdutoRequest produtoRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body
                 (ProdutoResponse.converter(produtoService.salvar(produtoRequest)));
     }
@@ -43,7 +44,7 @@ public class ProdutoController {
     @Operation(summary = "Atualizar")
     @PutMapping("/{id}")
     public ResponseEntity<ProdutoResponse> atualizar
-            (@PathVariable Integer id, @RequestBody ProdutoRequest produtoRequest){
+            (@PathVariable Integer id, @Valid @RequestBody ProdutoRequest produtoRequest){
         var produtoSalvo = produtoService.atualizar(id, produtoRequest);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ProdutoResponse.converter(produtoSalvo));
@@ -58,7 +59,8 @@ public class ProdutoController {
 
     @Operation(summary = "Atualiza estoque de produto")
     @PutMapping("/{id}/produto")
-    public ResponseEntity<ProdutoResponse> atualizarEstoque(Integer id, ProdutoEstoqueFilter filter){
+    public ResponseEntity<ProdutoResponse> atualizarEstoque(@PathVariable Integer id
+            , @Valid @RequestBody ProdutoEstoqueFilter filter){
         var produto = produtoService.atualizarEstoque(id, filter);
         return ResponseEntity.status(HttpStatus.CREATED).body(produto);
     }

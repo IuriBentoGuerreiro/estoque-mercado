@@ -48,7 +48,6 @@ public class PedidoService {
     public Pedido atualizar(Integer id, PedidoRequest pedidoRequest){
         var pedidoSalvo = pegarPorId(id);
         BeanUtils.copyProperties(pedidoRequest, pedidoSalvo, "id");
-        diminuirEstoque(pedidoRequest.getIdProduto(), pedidoRequest.getQuantidade());
         return pedidoRepository.save(pedidoSalvo);
     }
 
