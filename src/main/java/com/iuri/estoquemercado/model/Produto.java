@@ -2,6 +2,7 @@ package com.iuri.estoquemercado.model;
 
 import com.iuri.estoquemercado.dto.ProdutoRequest;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -26,6 +27,7 @@ public class Produto {
     private String nome;
     @Column(name = "quantidadeEstoque")
     @NotNull
+    @Min(value = 0)
     private Integer quantidadeEstoque;
     @Column(name = "preco")
     @NotNull
