@@ -13,13 +13,13 @@ import org.webjars.NotFoundException;
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
-    private ResponseEntity<RestErrorMessage> badRequestHandler(BadRequestException exception){
+    private ResponseEntity<RestErrorMessage> badRequestExceptionHandler(BadRequestException exception){
         RestErrorMessage restErrorMessage = new RestErrorMessage(HttpStatus.BAD_REQUEST, exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(restErrorMessage);
     }
 
     @ExceptionHandler(NotFoundException.class)
-    private ResponseEntity<RestErrorMessage> notFoundHandler(NotFoundException exception){
+    private ResponseEntity<RestErrorMessage> notFoundExceptionHandler(NotFoundException exception){
         RestErrorMessage restErrorMessage = new RestErrorMessage(HttpStatus.NOT_FOUND, exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(restErrorMessage);
     }
@@ -29,5 +29,4 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         RestErrorMessage restErrorMessage = new RestErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(restErrorMessage);
     }
-
 }

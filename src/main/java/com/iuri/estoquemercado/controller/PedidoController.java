@@ -5,6 +5,7 @@ import com.iuri.estoquemercado.dto.PedidoResponse;
 import com.iuri.estoquemercado.service.PedidoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class PedidoController {
 
     @Operation(summary = "salvar")
     @PostMapping
-    public ResponseEntity<PedidoResponse> salvar(@RequestBody PedidoRequest pedidoRequest){
+    public ResponseEntity<PedidoResponse> salvar(@Valid @RequestBody PedidoRequest pedidoRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.salvar(pedidoRequest));
     }
 
@@ -41,7 +42,7 @@ public class PedidoController {
     @Operation(summary = "atualizar")
     @PutMapping("/{id}")
     public ResponseEntity<PedidoResponse> atualizar
-            (@PathVariable Integer id, @RequestBody PedidoRequest pedidoRequest){
+            (@PathVariable Integer id, @Valid @RequestBody PedidoRequest pedidoRequest){
         return ResponseEntity.status(HttpStatus.CREATED)
         .body(PedidoResponse.converter(pedidoService.atualizar(id, pedidoRequest)));
     }
