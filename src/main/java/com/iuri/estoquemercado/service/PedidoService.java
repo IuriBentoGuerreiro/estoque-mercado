@@ -5,7 +5,6 @@ import com.iuri.estoquemercado.dto.PedidoResponse;
 import com.iuri.estoquemercado.model.Pedido;
 import com.iuri.estoquemercado.repository.PedidoRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
@@ -45,9 +44,15 @@ public class PedidoService {
         );
     }
 
+    @Transactional
     public Pedido atualizar(Integer id, PedidoRequest pedidoRequest){
         var pedidoSalvo = pegarPorId(id);
-        BeanUtils.copyProperties(pedidoRequest, pedidoSalvo, "id");
+
+        pedidoSalvo.setCliente(pedidoRequest.getCliente());
+        pedidoSalvo.setProduto(produtoService.pegarPorId(pedidoRequest.getIdProduto()));
+        pedidoSalvo.setQuantidade(pedidoRequest.getQuantidade());
+        pedidoSalvo.setPrecoTotal(precoTotal(pedidoSalvo, pedidoRequest.getIdProduto()));
+
         return pedidoRepository.save(pedidoSalvo);
     }
 
@@ -56,6 +61,7 @@ public class PedidoService {
         devolverEstoque(id);
         pedidoRepository.deleteById(id);
     }
+
 
     private BigDecimal precoTotal(Pedido pedido, Integer idProduto){
         var produto = produtoService.pegarPorId(idProduto);
