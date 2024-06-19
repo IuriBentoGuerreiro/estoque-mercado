@@ -45,23 +45,10 @@ public class PedidoService {
     }
 
     @Transactional
-    public Pedido atualizar(Integer id, PedidoRequest pedidoRequest){
-        var pedidoSalvo = pegarPorId(id);
-
-        pedidoSalvo.setCliente(pedidoRequest.getCliente());
-        pedidoSalvo.setProduto(produtoService.pegarPorId(pedidoRequest.getIdProduto()));
-        pedidoSalvo.setQuantidade(pedidoRequest.getQuantidade());
-        pedidoSalvo.setPrecoTotal(precoTotal(pedidoSalvo, pedidoRequest.getIdProduto()));
-
-        return pedidoRepository.save(pedidoSalvo);
-    }
-
-    @Transactional
     public void deletar(Integer id){
         devolverEstoque(id);
         pedidoRepository.deleteById(id);
     }
-
 
     private BigDecimal precoTotal(Pedido pedido, Integer idProduto){
         var produto = produtoService.pegarPorId(idProduto);

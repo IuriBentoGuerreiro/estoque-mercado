@@ -39,14 +39,6 @@ public class PedidoController {
         return ResponseEntity.ok(PedidoResponse.converter(pedidoService.pegarPorId(id)));
     }
 
-    @Operation(summary = "atualizar")
-    @PutMapping("/{id}")
-    public ResponseEntity<PedidoResponse> atualizar
-            (@PathVariable Integer id, @Valid @RequestBody PedidoRequest pedidoRequest){
-        return ResponseEntity.status(HttpStatus.CREATED)
-        .body(PedidoResponse.converter(pedidoService.atualizar(id, pedidoRequest)));
-    }
-
     @Operation(summary = "deletar")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
