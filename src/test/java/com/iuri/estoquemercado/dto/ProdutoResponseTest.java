@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProdutoResponseTest {
 
     @Test
-    void converter() {
+    void converterTest() {
         Produto produto = new Produto(1, "produto", 1, BigDecimal.valueOf(10));
 
         ProdutoResponse response = ProdutoResponse.converter(produto);
