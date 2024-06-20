@@ -2,12 +2,9 @@ package com.iuri.estoquemercado.model;
 
 import com.iuri.estoquemercado.dto.PedidoRequest;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
 class PedidoTest {
 
     @Test
