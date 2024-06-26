@@ -45,7 +45,8 @@ public class ProdutoService {
 
     public ProdutoResponse atualizarEstoque(Integer id, ProdutoEstoqueFilter filter){
        var produto = pegarPorId(id);
-       produto.setQuantidadeEstoque(filter.getQuantidadeEstoque());
+       var quantidadeAtualizada = produto.getQuantidadeEstoque() + filter.getQuantidadeEstoque();
+       produto.setQuantidadeEstoque(quantidadeAtualizada);
        BeanUtils.copyProperties(produto, filter, "id", "nome", "preco");
        produtoRepository.save(produto);
        return ProdutoResponse.converter(produto);
