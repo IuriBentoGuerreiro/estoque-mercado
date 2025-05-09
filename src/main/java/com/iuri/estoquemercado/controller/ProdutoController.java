@@ -1,9 +1,10 @@
 package com.iuri.estoquemercado.controller;
 
-import com.iuri.estoquemercado.dto.ProdutoEstoqueFilter;
-import com.iuri.estoquemercado.dto.ProdutoRequest;
-import com.iuri.estoquemercado.dto.ProdutoResponse;
-import com.iuri.estoquemercado.service.ProdutoService;
+import com.iuri.estoquemercado.dto.ProductRequest;
+import com.iuri.estoquemercado.dto.ProductResponse;
+import com.iuri.estoquemercado.dto.ProductStockUpdate;
+import com.iuri.estoquemercado.model.Product;
+import com.iuri.estoquemercado.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -16,52 +17,51 @@ import java.util.List;
 
 @Tag(name = "produto")
 @RestController
-@RequestMapping("/produto")
+@RequestMapping("/products")
 public class ProdutoController {
 
     @Autowired
-    private ProdutoService produtoService;
+    private ProductService productService;
 
     @PostMapping
-    @Operation(summary = "Salvar")
-    public ResponseEntity<ProdutoResponse> salvar(@Valid @RequestBody ProdutoRequest produtoRequest){
+    @Operation(summary = "save")
+    public ResponseEntity<ProductResponse> saveProduct(@Valid @RequestBody ProductRequest productRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body
-                (ProdutoResponse.converter(produtoService.salvar(produtoRequest)));
+                (ProductResponse.convert(productService.saveProduct(productRequest)));
     }
 
-    @Operation(summary = "Pegar por id")
+    @Operation(summary = "get by id")
     @GetMapping("/{id}")
-    public ProdutoResponse pegarPorId(@PathVariable Integer id){
-        return ProdutoResponse.converter(produtoService.pegarPorId(id));
+    public ProductResponse getProductById(@PathVariable Integer id) {
+        return ProductResponse.convert(productService.getProductById(id));
     }
 
-    @Operation(summary = "Listar")
+    @Operation(summary = "list")
     @GetMapping
-    public ResponseEntity<List<ProdutoResponse>> listar(){
-        return ResponseEntity.ok().body(produtoService.listar());
+    public ResponseEntity<List<ProductResponse>> listAllProducts() {
+        return ResponseEntity.ok().body(productService.listAllProducts());
     }
 
-    @Operation(summary = "Atualizar")
+    @Operation(summary = "update")
     @PutMapping("/{id}")
-    public ResponseEntity<ProdutoResponse> atualizar
-            (@PathVariable Integer id, @Valid @RequestBody ProdutoRequest produtoRequest){
-        var produtoSalvo = produtoService.atualizar(id, produtoRequest);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ProdutoResponse.converter(produtoSalvo));
+    public ResponseEntity<ProductResponse> updateProductById(@PathVariable Integer id, @Valid
+    @RequestBody ProductRequest productRequest) {
+        Product product = productService.updateProductById(id, productRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ProductResponse.convert(product));
     }
 
-    @Operation(summary = "Deletar")
+    @Operation(summary = "delete")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletar(@PathVariable Integer id){
-        produtoService.deletar(id);
+    public void deleteProduct(@PathVariable Integer id) {
+        productService.deleteProduct(id);
     }
 
-    @Operation(summary = "Atualiza estoque de produto")
-    @PutMapping("/{id}/produto")
-    public ResponseEntity<ProdutoResponse> atualizarEstoque(@PathVariable Integer id
-            , @Valid @RequestBody ProdutoEstoqueFilter filter){
-        var produto = produtoService.atualizarEstoque(id, filter);
-        return ResponseEntity.status(HttpStatus.CREATED).body(produto);
+    @Operation(summary = "update stock")
+    @PutMapping("/{id}/product")
+    public ResponseEntity<ProductResponse> updateStock(@PathVariable Integer id, @Valid
+    @RequestBody ProductStockUpdate stockUpdate) {
+        ProductResponse productResponse = productService.updateStock(id, stockUpdate);
+        return ResponseEntity.status(HttpStatus.CREATED).body(productResponse);
     }
 }

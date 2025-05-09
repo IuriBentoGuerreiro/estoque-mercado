@@ -1,6 +1,6 @@
 package com.iuri.estoquemercado.model;
 
-import com.iuri.estoquemercado.dto.ProdutoRequest;
+import com.iuri.estoquemercado.dto.ProductRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
@@ -11,39 +11,39 @@ import lombok.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "produto")
+@Table(name = "product")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Produto {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "nome")
+    @Column(name = "name")
     @NotBlank
-    private String nome;
-    @Column(name = "quantidadeEstoque")
+    private String name;
+    @Column(name = "stock_quantity")
     @NotNull
     @Min(value = 0)
-    private Integer quantidadeEstoque;
-    @Column(name = "preco")
+    private Integer stockQuantity;
+    @Column(name = "price")
     @NotNull
     @DecimalMin(value = "0")
-    private BigDecimal preco;
+    private BigDecimal price;
 
-    public Produto(Integer idProduto){
-        this.id = idProduto;
+    public Product(Integer idProduct){
+        this.id = idProduct;
     }
 
-    public static Produto converter(ProdutoRequest produtoRequest){
-        return Produto.builder()
-                .nome(produtoRequest.getNome())
-                .quantidadeEstoque(produtoRequest.getQuantidadeEstoque())
-                .preco(produtoRequest.getPreco())
+    public static Product convert(ProductRequest productRequest){
+        return Product.builder()
+                .name(productRequest.getName())
+                .stockQuantity(productRequest.getStockQuantity())
+                .price(productRequest.getPrice())
                 .build();
     }
 }

@@ -11,8 +11,8 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI openAPI(){
         return new OpenAPI().info(new Info()
-                .title("Estoque")
-                .description("Sistema de estoque")
+                .title("stock")
+                .description("Inventory system")
                 .version("1.0.0"));
     }
 }

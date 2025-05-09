@@ -1,0 +1,30 @@
+package com.iuri.estoquemercado.dto;
+
+import com.iuri.estoquemercado.model.Product;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProductResponse {
+
+    private Integer id;
+    private String name;
+    private Integer stockQuantity;
+    private BigDecimal price;
+
+    public static ProductResponse convert(Product product){
+        return ProductResponse.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .stockQuantity(product.getStockQuantity())
+                .price(product.getPrice())
+                .build();
+    }
+}
