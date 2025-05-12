@@ -1,10 +1,10 @@
-package com.iuri.estoquemercado.controller;
+package com.iuri.estoquemercado.aplication.controller;
 
-import com.iuri.estoquemercado.dto.ProductRequest;
-import com.iuri.estoquemercado.dto.ProductResponse;
-import com.iuri.estoquemercado.dto.ProductStockUpdate;
-import com.iuri.estoquemercado.model.Product;
-import com.iuri.estoquemercado.service.ProductService;
+import com.iuri.estoquemercado.aplication.dto.ProductRequest;
+import com.iuri.estoquemercado.aplication.dto.ProductResponse;
+import com.iuri.estoquemercado.aplication.dto.ProductStockUpdate;
+import com.iuri.estoquemercado.domain.model.Product;
+import com.iuri.estoquemercado.aplication.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "produto")
+@Tag(name = "Product")
 @RestController
 @RequestMapping("/products")
-public class ProdutoController {
+public class ProductController {
 
     @Autowired
     private ProductService productService;

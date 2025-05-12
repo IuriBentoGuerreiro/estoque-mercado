@@ -1,6 +1,6 @@
-package com.iuri.estoquemercado.model;
+package com.iuri.estoquemercado.domain.model;
 
-import com.iuri.estoquemercado.dto.SaleRequest;
+import com.iuri.estoquemercado.aplication.dto.SaleRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;

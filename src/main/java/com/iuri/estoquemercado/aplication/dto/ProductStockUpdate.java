@@ -1,4 +1,4 @@
-package com.iuri.estoquemercado.dto;
+package com.iuri.estoquemercado.aplication.dto;
 
 import lombok.Data;
 

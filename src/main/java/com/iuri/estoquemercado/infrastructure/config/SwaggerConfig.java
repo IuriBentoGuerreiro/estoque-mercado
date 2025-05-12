@@ -1,4 +1,4 @@
-package com.iuri.estoquemercado.config;
+package com.iuri.estoquemercado.infrastructure.config;
 
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.OpenAPI;

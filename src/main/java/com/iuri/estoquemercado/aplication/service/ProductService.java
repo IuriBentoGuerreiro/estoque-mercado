@@ -1,10 +1,10 @@
-package com.iuri.estoquemercado.service;
+package com.iuri.estoquemercado.aplication.service;
 
-import com.iuri.estoquemercado.dto.ProductStockUpdate;
-import com.iuri.estoquemercado.dto.ProductRequest;
-import com.iuri.estoquemercado.dto.ProductResponse;
-import com.iuri.estoquemercado.model.Product;
-import com.iuri.estoquemercado.repository.ProductRepository;
+import com.iuri.estoquemercado.aplication.dto.ProductStockUpdate;
+import com.iuri.estoquemercado.aplication.dto.ProductRequest;
+import com.iuri.estoquemercado.aplication.dto.ProductResponse;
+import com.iuri.estoquemercado.domain.model.Product;
+import com.iuri.estoquemercado.infrastructure.repository.ProductRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

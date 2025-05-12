@@ -1,8 +1,8 @@
-package com.iuri.estoquemercado.controller;
+package com.iuri.estoquemercado.aplication.controller;
 
-import com.iuri.estoquemercado.dto.SaleRequest;
-import com.iuri.estoquemercado.dto.SaleResponse;
-import com.iuri.estoquemercado.service.SaleService;
+import com.iuri.estoquemercado.aplication.dto.SaleRequest;
+import com.iuri.estoquemercado.aplication.dto.SaleResponse;
+import com.iuri.estoquemercado.aplication.service.SaleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

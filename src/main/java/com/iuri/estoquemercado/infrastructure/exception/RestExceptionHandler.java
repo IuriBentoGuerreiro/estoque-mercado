@@ -1,4 +1,4 @@
-package com.iuri.estoquemercado.exception;
+package com.iuri.estoquemercado.infrastructure.exception;
 
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;

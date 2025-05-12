@@ -1,7 +1,7 @@
-package com.iuri.estoquemercado.dto;
+package com.iuri.estoquemercado.aplication.dto;
 
-import com.iuri.estoquemercado.model.Sale;
-import com.iuri.estoquemercado.model.Product;
+import com.iuri.estoquemercado.domain.model.Sale;
+import com.iuri.estoquemercado.domain.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
