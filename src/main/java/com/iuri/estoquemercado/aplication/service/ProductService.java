@@ -7,6 +7,8 @@ import com.iuri.estoquemercado.domain.model.Product;
 import com.iuri.estoquemercado.infrastructure.repository.ProductRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
@@ -28,9 +30,8 @@ public class ProductService {
         );
     }
 
-    public List<ProductResponse> listAllProducts(){
-        return productRepository.findAll().stream().map(
-                ProductResponse::convert).toList();
+    public Page<Product> listAllProducts(Pageable pageable){
+        return productRepository.findAll(pageable);
     }
 
     public Product updateProductById(Integer id, ProductRequest productRequest){

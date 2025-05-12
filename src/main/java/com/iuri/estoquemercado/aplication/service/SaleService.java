@@ -7,6 +7,8 @@ import com.iuri.estoquemercado.domain.model.Product;
 import com.iuri.estoquemercado.infrastructure.repository.SaleRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
@@ -34,9 +36,8 @@ public class SaleService {
         return SaleResponse.convert(sale);
     }
 
-    public List<SaleResponse> listAllSales(){
-        return saleRepository.findAll().stream().map(
-                SaleResponse::convert).toList();
+    public Page<Sale> listAllSales(Pageable pageable){
+        return saleRepository.findAll(pageable);
     }
 
     public Sale getSaleById(Integer id){
