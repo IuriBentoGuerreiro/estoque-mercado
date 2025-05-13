@@ -26,6 +26,9 @@ public class Product {
     @Column(name = "name")
     @NotBlank
     private String name;
+    @Column(name = "description")
+    @NotBlank
+    private String description;
     @Column(name = "stock_quantity")
     @NotNull
     @Min(value = 0)
@@ -34,6 +37,8 @@ public class Product {
     @NotNull
     @DecimalMin(value = "0")
     private BigDecimal price;
+    @Column(name = "is_active")
+    private Boolean isActive;
 
     public Product(Integer idProduct){
         this.id = idProduct;

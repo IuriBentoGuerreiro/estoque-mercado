@@ -2,9 +2,8 @@ package com.iuri.estoquemercado.aplication.controller;
 
 import com.iuri.estoquemercado.aplication.dto.ProductRequest;
 import com.iuri.estoquemercado.aplication.dto.ProductResponse;
-import com.iuri.estoquemercado.aplication.dto.ProductStockUpdate;
-import com.iuri.estoquemercado.domain.model.Product;
 import com.iuri.estoquemercado.aplication.service.ProductService;
+import com.iuri.estoquemercado.domain.model.Product;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -14,8 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Tag(name = "Product")
 @RestController
@@ -28,8 +25,7 @@ public class ProductController {
     @PostMapping
     @Operation(summary = "save")
     public ResponseEntity<ProductResponse> saveProduct(@Valid @RequestBody ProductRequest productRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body
-                (ProductResponse.convert(productService.saveProduct(productRequest)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.saveProduct(productRequest));
     }
 
     @Operation(summary = "get by id")
@@ -57,13 +53,5 @@ public class ProductController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProduct(@PathVariable Integer id) {
         productService.deleteProduct(id);
-    }
-
-    @Operation(summary = "update stock")
-    @PutMapping("/{id}/product")
-    public ResponseEntity<ProductResponse> updateStock(@PathVariable Integer id, @Valid
-    @RequestBody ProductStockUpdate stockUpdate) {
-        ProductResponse productResponse = productService.updateStock(id, stockUpdate);
-        return ResponseEntity.status(HttpStatus.CREATED).body(productResponse);
     }
 }

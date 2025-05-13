@@ -1,16 +1,16 @@
 package com.iuri.estoquemercado.domain.model;
 
-import com.iuri.estoquemercado.aplication.dto.SaleRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "sale")
@@ -24,25 +24,34 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @ManyToOne
-    @NotNull
-    @JoinColumn(name = "id_product", referencedColumnName = "id")
-    private Product product;
-    @NotBlank
-    @Column(name = "client")
-    private String client;
-    @NotNull
-    @Column(name = "quantity")
-    private Integer quantity;
-    @DecimalMin(value = "1")
-    @Column(name = "total_price")
-    private BigDecimal totalPrice;
 
-    public static Sale convert(SaleRequest saleRequest){
-        return Sale.builder()
-                .product(new Product(saleRequest.getIdProduct()))
-                .quantity(saleRequest.getQuantity())
-                .client(saleRequest.getClient())
-                .build();
+    @Column(name = "sale_date", nullable = false)
+    private LocalDateTime saleDate;
+
+    @Column(name = "total_amount", nullable = false, precision = 10, scale = 2)
+    private BigDecimal totalAmount;
+
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<SaleItem> items;
+
+    public void calculateTotal() {
+        this.totalAmount = this.items.stream()
+                .map(item -> item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public void addItem(SaleItem item) {
+        if (item == null) {
+            throw new IllegalArgumentException("Item não pode ser nulo");
+        }
+
+        if (this.items == null) {
+            this.items = new ArrayList<>();
+        }
+
+        this.items.add(item);
+        item.setSale(this);
+        calculateTotal();
     }
 }

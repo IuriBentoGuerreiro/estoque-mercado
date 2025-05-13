@@ -18,6 +18,7 @@ public class ProductResponse {
     private String name;
     private Integer stockQuantity;
     private BigDecimal price;
+    private Boolean isActive;
 
     public static ProductResponse convert(Product product){
         return ProductResponse.builder()
@@ -25,6 +26,7 @@ public class ProductResponse {
                 .name(product.getName())
                 .stockQuantity(product.getStockQuantity())
                 .price(product.getPrice())
+                .isActive(product.getIsActive())
                 .build();
     }
 }

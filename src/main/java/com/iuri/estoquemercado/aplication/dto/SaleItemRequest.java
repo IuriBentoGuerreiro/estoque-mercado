@@ -1,16 +1,14 @@
 package com.iuri.estoquemercado.aplication.dto;
 
-import com.iuri.estoquemercado.domain.model.SaleItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SaleRequest {
+public class SaleItemRequest {
 
-    List<SaleItemRequest> saleItems;
+    private Integer productId;
+    private Integer quantity;
 }

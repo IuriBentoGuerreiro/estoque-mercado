@@ -27,8 +27,7 @@ public class SaleController {
     @Operation(summary = "save")
     @PostMapping
     public ResponseEntity<SaleResponse> saveSale(@Valid @RequestBody SaleRequest saleRequest) {
-        SaleResponse saleResponse = saleService.saveSale(saleRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saleResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(SaleResponse.convert(saleService.saveSale(saleRequest)));
     }
 
     @Operation(summary = "list")

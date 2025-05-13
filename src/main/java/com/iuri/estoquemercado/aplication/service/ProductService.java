@@ -1,6 +1,5 @@
 package com.iuri.estoquemercado.aplication.service;
 
-import com.iuri.estoquemercado.aplication.dto.ProductStockUpdate;
 import com.iuri.estoquemercado.aplication.dto.ProductRequest;
 import com.iuri.estoquemercado.aplication.dto.ProductResponse;
 import com.iuri.estoquemercado.domain.model.Product;
@@ -12,16 +11,22 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
-import java.util.List;
-
 @Service
 public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
 
-    public Product saveProduct(ProductRequest productRequest){
-        return productRepository.save(Product.convert(productRequest));
+    public ProductResponse saveProduct(ProductRequest productRequest){
+        Product product = productRepository.save(Product.builder()
+                        .name(productRequest.getName())
+                        .description(productRequest.getDescription())
+                        .stockQuantity(productRequest.getStockQuantity())
+                        .price(productRequest.getPrice())
+                        .isActive(true)
+                .build());
+
+        return ProductResponse.convert(product);
     }
 
     public Product getProductById(Integer id){
@@ -42,14 +47,5 @@ public class ProductService {
 
     public void deleteProduct(Integer id){
         productRepository.deleteById(id);
-    }
-
-    public ProductResponse updateStock(Integer id, ProductStockUpdate stockUpdate){
-       Product product = getProductById(id);
-       Integer updateQuantity = product.getStockQuantity() + stockUpdate.getStockQuantity();
-       product.setStockQuantity(updateQuantity);
-       BeanUtils.copyProperties(product, updateQuantity, "id", "name", "price");
-       productRepository.save(product);
-       return ProductResponse.convert(product);
     }
 }
