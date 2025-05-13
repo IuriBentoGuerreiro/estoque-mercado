@@ -1,6 +1,5 @@
 package com.iuri.estoquemercado.aplication.dto;
 
-import com.iuri.estoquemercado.domain.model.SaleItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,5 +11,5 @@ import java.util.List;
 @NoArgsConstructor
 public class SaleRequest {
 
-    List<SaleItemRequest> saleItems;
+    private List<SaleItemRequest> saleItems;
 }
