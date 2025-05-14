@@ -32,7 +32,6 @@ public class Sale {
     private BigDecimal totalAmount;
 
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<SaleItem> items;
 
     public void calculateTotal() {
