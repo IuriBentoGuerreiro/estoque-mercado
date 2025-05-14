@@ -2,8 +2,10 @@ package com.iuri.estoquemercado.aplication.service;
 
 import com.iuri.estoquemercado.aplication.dto.ProductRequest;
 import com.iuri.estoquemercado.aplication.dto.ProductResponse;
+import com.iuri.estoquemercado.aplication.dto.filter.ProductFilter;
 import com.iuri.estoquemercado.domain.model.Product;
 import com.iuri.estoquemercado.infrastructure.repository.ProductRepository;
+import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,8 +37,9 @@ public class ProductService {
         );
     }
 
-    public Page<Product> listAllProducts(Pageable pageable){
-        return productRepository.findAll(pageable);
+    public Page<Product> listAllProducts(ProductFilter filter, Pageable pageable){
+        BooleanBuilder predicate = filter.toPredicate();
+        return productRepository.findAll(predicate, pageable);
     }
 
     public Product updateProductById(Integer id, ProductRequest productRequest){

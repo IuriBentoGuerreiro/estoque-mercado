@@ -2,6 +2,7 @@ package com.iuri.estoquemercado.aplication.controller;
 
 import com.iuri.estoquemercado.aplication.dto.ProductRequest;
 import com.iuri.estoquemercado.aplication.dto.ProductResponse;
+import com.iuri.estoquemercado.aplication.dto.filter.ProductFilter;
 import com.iuri.estoquemercado.aplication.service.ProductService;
 import com.iuri.estoquemercado.domain.model.Product;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,8 +37,8 @@ public class ProductController {
 
     @Operation(summary = "list")
     @GetMapping
-    public ResponseEntity<Page<Product>> listAllProducts(Pageable pageable) {
-        return ResponseEntity.ok(productService.listAllProducts(pageable));
+    public ResponseEntity<Page<Product>> listAllProducts(ProductFilter filter, Pageable pageable) {
+        return ResponseEntity.ok(productService.listAllProducts(filter, pageable));
     }
 
     @Operation(summary = "update")
