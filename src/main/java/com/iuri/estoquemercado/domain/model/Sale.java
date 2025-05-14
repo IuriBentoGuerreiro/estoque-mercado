@@ -1,6 +1,5 @@
 package com.iuri.estoquemercado.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +23,9 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
+
+    @Column(name = "client_name", nullable = false)
+    private String clientName;
 
     @Column(name = "sale_date", nullable = false)
     private LocalDateTime saleDate;

@@ -2,6 +2,7 @@ package com.iuri.estoquemercado.aplication.controller;
 
 import com.iuri.estoquemercado.aplication.dto.SaleRequest;
 import com.iuri.estoquemercado.aplication.dto.SaleResponse;
+import com.iuri.estoquemercado.aplication.dto.filter.SaleFilter;
 import com.iuri.estoquemercado.aplication.service.SaleService;
 import com.iuri.estoquemercado.domain.model.Sale;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,8 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Tag(name = "Sale")
 @RestController
@@ -32,8 +31,8 @@ public class SaleController {
 
     @Operation(summary = "list")
     @GetMapping
-    public ResponseEntity<Page<Sale>> listAllSales(Pageable pageable) {
-        return ResponseEntity.ok().body(saleService.listAllSales(pageable));
+    public ResponseEntity<Page<Sale>> listAllSales(SaleFilter filter, Pageable pageable) {
+        return ResponseEntity.ok().body(saleService.listAllSales(filter, pageable));
     }
 
     @Operation(summary = "get by id")

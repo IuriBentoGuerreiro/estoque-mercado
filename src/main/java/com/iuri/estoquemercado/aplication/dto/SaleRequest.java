@@ -11,5 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 public class SaleRequest {
 
+    private String clientName;
     private List<SaleItemRequest> saleItems;
 }

@@ -1,11 +1,7 @@
 package com.iuri.estoquemercado.aplication.dto;
 
 import com.iuri.estoquemercado.domain.model.Sale;
-import com.iuri.estoquemercado.domain.model.Product;
 import com.iuri.estoquemercado.domain.model.SaleItem;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +18,7 @@ import java.util.List;
 public class SaleResponse {
 
     private Integer id;
+    private String clientName;
     private LocalDateTime saleDate;
     private BigDecimal totalAmount;
     private List<SaleItem> items;

@@ -2,10 +2,12 @@ package com.iuri.estoquemercado.aplication.service;
 
 import com.iuri.estoquemercado.aplication.dto.SaleItemRequest;
 import com.iuri.estoquemercado.aplication.dto.SaleRequest;
+import com.iuri.estoquemercado.aplication.dto.filter.SaleFilter;
 import com.iuri.estoquemercado.domain.model.Product;
 import com.iuri.estoquemercado.domain.model.Sale;
 import com.iuri.estoquemercado.domain.model.SaleItem;
 import com.iuri.estoquemercado.infrastructure.repository.SaleRepository;
+import com.querydsl.core.BooleanBuilder;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +30,7 @@ public class SaleService {
     @Transactional
     public Sale saveSale(SaleRequest saleRequest) {
         Sale sale = Sale.builder()
+                .clientName(saleRequest.getClientName())
                 .saleDate(LocalDateTime.now())
                 .items(new ArrayList<>())
                 .build();
@@ -47,9 +50,9 @@ public class SaleService {
         return saleRepository.save(sale);
     }
 
-
-    public Page<Sale> listAllSales(Pageable pageable) {
-        return saleRepository.findAll(pageable);
+    public Page<Sale> listAllSales(SaleFilter filter, Pageable pageable) {
+        BooleanBuilder predicate = filter.toPredicate();
+        return saleRepository.findAll(predicate, pageable);
     }
 
     public Sale getSaleById(Integer id) {
